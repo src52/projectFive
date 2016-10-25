@@ -7,7 +7,7 @@ public class Node {
     // data carried by this node. could be of any type you need.
     private Element e;
     // reference to the next node in the chain, or null if there isn't one.
-    private Node next;
+    public Node next;
     /**
      *
      * @param e

@@ -7,66 +7,42 @@ package projectfive;
 public class LinkedList {
     private static int size;
     private Node head;
+
     private Node tail;
-    //default constructor
-//construct an initially empty list
-    public LinkedList(){
-        size =0;
+
+    public LinkedList() {
+        size = 0;
         head = null;
         tail = null;
     }
-    /**
-     *
-     * @return
-     */
-    public int size(){
-        return size;
-    }
-    /**
-     *
-     * @return
-     */
+
     public boolean isEmpty(){
-        return size ==0;
+        return size == 0;
     }
 
-    //returns (but does not remove) the first element
-    public Element first(){
-        if (isEmpty())
-            return null;
+    public Element first() {
+        if (isEmpty()) return null;
         return head.getElement();
     }
-//returns (but does not remove) the last element
-    /**
-     *
-     * @return
-     */
+
     public Element last(){
-        if (isEmpty())
-            return null;
+        if (isEmpty()) return null;
         return tail.getElement();
     }
-//update methods//add element to the front of the list
-    /**
-     *
-     * @param e
-     */
-//add element to the front of the list
+
     public void addFirst(Element e){
-//create and link a new node
         head = new Node(e, head);
-// special case: new node becomes tail
-        if (size == 0 )
+        if (size == 0)
             tail = head;
         size++;
     }
-    //add element to the end of the list
     public void addLast(Element e){
+        size++;
         Node currentNode = head;
         while(currentNode.getNext() != null) currentNode = currentNode.getNext();
         currentNode.setNext(new Node(e, null));
     }
-    // remove and return the first element
+
     public Element removeFirst() {
         if(head != null) {
             Element temporaryElement = head.getElement();
@@ -75,16 +51,61 @@ public class LinkedList {
         }
         return null;
     }
-    // inserts the specified element at the specified position in this list
-    public void add(Element data, int index) {
+
+    public boolean add(int index, Element data) {
+        size++;
+        Node previousNode = null;
+        Node currentNode = head;
+        Node newNode;
+        int count = 0;
+        if (index < 0 || index > getSize()) {
+            System.out.println("Please enter a valid index!");
+            return false;
+        }
+        for (int a = 0; a < index; a++) {
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
+        if (index == 0) {
+            addFirst(data);
+        } else if (index == size) {
+            addLast(data);
+        } else {
+            newNode = new Node(data, previousNode.getNext());
+            previousNode.setNext(newNode);
+            newNode.setNext(currentNode);
+        }
+        return true;
     }
-    // returns the element at the specified position in this list.
-    public Element get(int index){
-        return null;
+
+    public Element get(int index) {
+        Node temporary = head;
+        for (int a = 0; a < index; a++) temporary = temporary.getNext();
+        return temporary.getElement();
     }
-    // removes the element at the specified position in this list.
+
     public boolean remove(int index) {
-        return false;
+        size--;
+        Node previousNode = null;
+        Node currentNode = head;
+        if (index < 0 || index >= getSize()) {
+            System.out.println("Index out of bounds fam!");
+            return false;
+        }
+
+        //Set the nodes to the proper indexes
+        for (int a = 0; a < index; a++) {
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
+
+        //Remove the node
+        if (currentNode == getHead()) setHead(head.getNext());
+        else previousNode.setNext(currentNode.getNext());
+
+        //Update the tail
+        if (currentNode == getTail()) setTail(previousNode);
+        return true;
     }
     public String toString() {
         String output = "The LinkedList is blank";
@@ -94,8 +115,28 @@ public class LinkedList {
             while (current != null) {
                 output += "[" + current.getElement().toString() + "]";
                 current = current.getNext();
-            }//while
-        }//if
+            }
+        }
         return output;
-    }//toString()
+    }
+
+    public static int getSize() {
+        return size;
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
+    public Node getTail() {
+        return tail;
+    }
+
+    public void setTail(Node tail) {
+        this.tail = tail;
+    }
 }

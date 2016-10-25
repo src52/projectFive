@@ -9,17 +9,24 @@ public class Driver {
         LinkedList list = new LinkedList();
         System.out.println("List: " + list);
         Element e = new Element("A", 1);
-        Element e1 = new Element("B", 2);
-        Element e2 = new Element("C", 3);
-        Element e3 = new Element("D", 4);
+
         list.addFirst(e);
         System.out.println("New List: " + list + "\"");
         list.addLast(new Element("new data", 2));
         list.addLast(new Element("new data2", 22));
         list.addLast(new Element("new data3", 2344));
+        list.addLast(new Element("D", 4));
+        list.addLast(new Element("D111", 4));
+        list.addLast(new Element("D222", 4));
+        list.addLast(new Element("D333", 4));
+        list.addLast(new Element("D444", 4));
         System.out.println("New List: " + list + "\"");
         list.removeFirst();
-        System.out.println("New List: " + list + "\"");
+        System.out.println("Removed: [ " + list.getTail() + "]\n\nNew List: " + list + "\"");
+        int position = 1;
+        Element sampleElement = new Element("Position 2", 2);
+        list.add(position, sampleElement);
+        System.out.println("Added: [" + sampleElement + "] to position " + position + "\n\nNew List: " + list + "\"");
         /*list.addFirst(e1);
         list.addFirst(e2);list.addFirst(e3);
         System.out.println(e);
